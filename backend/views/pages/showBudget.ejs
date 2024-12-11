@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Budgets</title>
+  <link rel="stylesheet" href="/css/showBudget.css">
+</head>
+
+<body>
+  <!-- Include header -->
+
+  <div class="container">
+    <h1>Your Budget Summary</h1>
+
+    <!-- Table to display expenses -->
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Budget Amount </th>
+          <th>Period</th>
+          <th>Priority Level</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% newBudget.forEach(budget => { %>
+          <tr>
+            <td><%= budget.category %></td>
+            <td><%= budget.budgetAmount %></td>
+            <td><%= budget.period ? budget.period.toUpperCase() : 'N/A' %></td>
+            <td><%= budget.priority ? budget.priority.toUpperCase() : 'N/A' %></td>
+            <td><%= budget.notes ? budget.notes : 'No notes provided' %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+      
+    </table>
+    <a href="/budget"><button>Add more Budget</button></a>
+    <a href="/"><button>Back</button></a>
+  </div>
+
+  <!-- Include footer -->
+
+</body>
+</html>

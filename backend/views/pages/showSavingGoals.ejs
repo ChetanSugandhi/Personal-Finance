@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Saving Goals</title>
+  <link rel="stylesheet" href="/css/showSavingGoals.css">
+</head>
+<body>
+  <h1>All Your Saving Goals</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Goal Name</th>
+        <th>Target Amount</th>
+        <th>Current Savings</th>
+        <th>Remaining Amount</th>
+        <th>Deadline</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% newGoal.forEach(goal => { %>
+        <tr>
+          <td><%= goal.goalName %></td>
+          <td><%= goal.targetAmount %></td>
+          <td><%= goal.currentSavings %></td>
+          <td><%= goal.remainingAmount %></td>
+          <td><%= goal.deadline ? new Date(goal.deadline).toLocaleDateString() : 'N/A' %></td>
+          <td><%= goal.notes %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <a href="/savings"><button>Add more Expense</button></a>
+  <a href="/"><button>Back</button></a>
+
+</body>
+</html>
