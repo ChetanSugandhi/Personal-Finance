@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const Expense = require("./models/Expense");
 const Budget = require("./models/Budget");
 const SavingsGoal = require('./models/SavingGoal');
+const User = require('./models/User');
 const expenseRoutes = require('./routes/expenseRoutes');
 const savingGoalRoutes = require('./routes/savingGoalRoutes');
 const budgetRoutes = require('./routes/budgetRoutes');
@@ -123,13 +124,13 @@ app.get('/budget', (req, res) => {
 });
 
 app.post('/addBudget', (req, res) => {
-    const { category, budgetAmount, period, priority, notes } = req.body;
+    const { category, budgetAmount, month, spentAmount, notes } = req.body;
 
     const newBudget = new Budget({
         category,
         budgetAmount,
-        period,
-        priority,
+        month,
+        spentAmount,
         notes,
     });
 
@@ -187,13 +188,37 @@ app.post('/addSavings', (req, res) => {
 });
 
 
-// Login route
 app.get('/login', (req, res) => {
     res.render('pages/login', {
         signupLink: '/signup',
-        forgotPasswordLink: '/forgot-password'
+        forgotPasswordLink: '/forgot-password',
+        alertMessage: null // Pass a default value
     });
 });
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Check if the user exists
+        const user = await User.findOne({ email, password });
+        if (!user) {
+            return res.render('pages/login', {
+                signupLink: '/signup',
+                forgotPasswordLink: '/forgot-password',
+                alertMessage: 'No user found with this email or password.'
+            });
+        }
+
+        // Redirect to the dashboard or home page
+        console.log("User exists and is authenticated");
+        res.redirect('/new');
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 
@@ -204,15 +229,25 @@ app.get('/signup', (req, res) => {
     });
 });
 
+app.post('/signup', async(req,res) => {
+    const{email, password} = req.body;
+    const newUser = new User({ email, password });
+    await newUser.save();
+    console.log("User saved");
+    res.redirect('/login');
+})
+
 
 // Forgot Password page
-app.get('/forgot-password', (req, res) => {
+app.post('/forgot-password', (req, res) => {
     res.render('pages/forgotPassword', {
         loginLink: '/login'
     });
 });
 
-
+app.get("/new",(req,res) => {
+    res.render("pages/indexNew");
+})
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

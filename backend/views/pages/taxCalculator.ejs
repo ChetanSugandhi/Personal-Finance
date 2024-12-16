@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tax Calculator | SpendSmart</title>
     <link rel="stylesheet" href="/css/taxCalculator.css">
 </head>
+
 <body>
 
     <!-- Navigation Bar -->
     <nav class="navbar">
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/new">Home</a></li>
             <li><a href="/features">Features</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
@@ -32,11 +34,13 @@
                 </div>
                 <div class="form-group">
                     <label for="deductions">Deductions ($)</label>
-                    <input type="number" id="deductions" name="deductions" placeholder="Enter your deductions (optional)">
+                    <input type="number" id="deductions" name="deductions"
+                        placeholder="Enter your deductions (optional)">
                 </div>
                 <div class="form-group">
                     <label for="investment">Investment Income ($)</label>
-                    <input type="number" id="investment" name="investment" placeholder="Enter your investment income (optional)">
+                    <input type="number" id="investment" name="investment"
+                        placeholder="Enter your investment income (optional)">
                 </div>
                 <div class="form-group">
                     <label for="taxRate">Tax Rate (%)</label>
@@ -63,7 +67,7 @@
 
     <!-- JavaScript to handle form submission -->
     <script>
-        document.getElementById('taxCalculatorForm').addEventListener('submit', function(e) {
+        document.getElementById('taxCalculatorForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             // Get user inputs
@@ -75,15 +79,16 @@
             // Calculate taxable income
             const taxableIncome = income + investment - deductions;
 
-            // Apply tax rate based on taxable income
+            // Initialize tax payable variable
             let taxPayable = 0;
 
+            // Apply tax rate based on taxable income
             if (taxableIncome <= 50000) {
-                taxPayable = taxableIncome * 0.10;
+                taxPayable = taxableIncome * 0.10; // 10% for income up to $50,000
             } else if (taxableIncome <= 100000) {
-                taxPayable = taxableIncome * 0.20;
+                taxPayable = taxableIncome * 0.20; // 20% for income between $50,001 and $100,000
             } else {
-                taxPayable = taxableIncome * 0.30;
+                taxPayable = taxableIncome * 0.30; // 30% for income above $100,000
             }
 
             // Display tax result
@@ -93,4 +98,5 @@
     </script>
 
 </body>
+
 </html>

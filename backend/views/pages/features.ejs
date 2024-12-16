@@ -16,11 +16,12 @@
                 <h2>SpendSmart</h2>
             </div>
             <div class="nav">
-                <a href="/"><%= homeText %></a> 
+                <a href="/new"><%= homeText %></a> 
                 <a href="/about">About</a>
                 <a href="/features"><%= featuresText %></a> 
                 <a href="/contact">Contact</a>
-            </div>
+                <a href="/" class="logout-link">Logout</a>
+              </div>
         </div>
 
   <!-- Header Section -->
@@ -96,7 +97,33 @@
     </div>
   </footer>
 
-  <script src="/js/script.js"></script> 
+  <script>
+    // Listen for the logout link click event
+    document.querySelector('.logout-link').addEventListener('click', function (e) {
+        e.preventDefault(); // Prevent default anchor link behavior (immediate redirect)
+
+        // Display a confirmation message or modal if needed
+        const successModal = document.createElement('div');
+        successModal.classList.add('logout-modal');
+        successModal.innerHTML = `
+            <div class="modal-content">
+                <div class="emoji">✔️</div>
+                <h3>You have been logged out. Redirecting...</h3>
+            </div>
+        `;
+        document.body.appendChild(successModal);
+
+        // Add styles for the modal (CSS is in the styles above)
+
+        // Wait for 2 seconds before redirecting
+        setTimeout(function () {
+            // Remove the modal before redirecting
+            successModal.remove();
+            window.location.href = '/'; // Redirect to the home route
+        }, 2000); // 2000 milliseconds = 2 seconds
+    });
+</script>
+
 </body>
 
 </html>

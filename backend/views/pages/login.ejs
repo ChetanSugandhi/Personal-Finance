@@ -4,15 +4,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In page</title>
-    <link rel="stylesheet" href="/css/login.css">
+    <title>Log In Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .links a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 50%;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content h3 {
+            margin: 10px 0 0;
+            color: green;
+            font-size: 16px;
+        }
+
+        .modal-content .checkmark {
+            font-size: 50px;
+            color: green;
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            animation: scaleUp 0.3s ease-in-out;
+        }
+    </style>
 </head>
 
 <body>
     <div class="login-container">
         <h2>Log-In</h2>
-        <!-- Login Form -->
-        <form action="/" method="get">
+        <form action="/login" id="login-form" method="post">
             <div class="form-group">
                 <label for="email">Email ID</label>
                 <input type="email" id="email" name="email" required>
@@ -21,18 +142,44 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <form action="/" method="get">
-                <button type="submit" class="login-btn">Login</button>
-            </form>
+            <button type="submit" class="login-btn">Login</button>
         </form>
 
-        <!-- Links Section -->
         <div class="links">
-            <!-- Dynamic link for Create Account -->
-            <a href="<%= signupLink %>">Create your Account |</a>
-            <a href="<%= forgotPasswordLink %>">Forgot Password?</a>
+            <a href="/signup">Create your Account |</a>
+            <a href="/forgot-password">Forgot Password?</a>
         </div>
     </div>
+
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="checkmark">✔</div>
+            <h3>Login Successful!</h3>
+        </div>
+    </div>
+
+    <% if (alertMessage) { %>
+        <script>
+            alert('<%= alertMessage %>');
+        </script>
+    <% } %>
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const successModal = document.getElementById('success-modal');
+
+            loginForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                successModal.style.display = 'flex';
+
+                setTimeout(() => {
+                    window.location.href = '/new';
+                }, 2000);
+            });
+        });
+    </script> -->
 </body>
 
 </html>

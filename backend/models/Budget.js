@@ -9,12 +9,12 @@ const budgetSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    period : {
+    month : {
         type : String,
         required : true
     },
-    priority : {
-        type : String,
+    spentAmount : {
+        type : Number,
         required : true
     },
     notes : {
